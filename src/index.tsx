@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {users, db, responses} from './db';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,3 +16,7 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+users.get().then(q => q.docs.forEach(d => console.log(d.data())));
+db.collection('responses').get().then(q => q.docs.forEach(d => console.log(d.data())));
+responses.get().then(q => q.docs.forEach(d => console.log(d.data())));
