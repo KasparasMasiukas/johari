@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './TraitsGrid.scss';
+import '../styles/TraitsGrid.scss';
 import traits from "../services/traits";
 import {Card, CardContent, GridList, GridListTile, Typography} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
@@ -10,7 +10,7 @@ interface Props {
 
 }
 
-// const MIN_SELECTIONS = 5;
+const MIN_SELECTIONS = 5;
 const MAX_SELECTIONS = 10;
 
 const TraitsGrid: React.FC<Props> = (() => {
@@ -51,6 +51,7 @@ const TraitsGrid: React.FC<Props> = (() => {
 
     return (
         <Paper elevation={3} className="traits-paper">
+            <Typography variant="h5">Pasirinkite nuo {MIN_SELECTIONS} iki {MAX_SELECTIONS} savo savybių:</Typography>
             <GridList cellHeight={"auto"} spacing={1} cols={0} className="traits-grid">
                 {traits().map(makeTraitTile)}
             </GridList>

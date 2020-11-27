@@ -1,5 +1,5 @@
 const traitsLT = [
-    'Artimas (-a)',
+    'Artimas',
     'Atviras',
     'Drovus',
     'Šiltas',
