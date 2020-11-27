@@ -4,6 +4,7 @@ export const db = firebase.firestore();
 
 interface User {
     name: string;
+    gender: 'male' | 'female';
     traits: number[];
 }
 
@@ -16,6 +17,7 @@ const userConverter: firebase.firestore.FirestoreDataConverter<User> = {
         const data = snapshot.data(options)!;
         return {
             name: data.name,
+            gender: data.gender,
             traits: data.traits
         };
     }

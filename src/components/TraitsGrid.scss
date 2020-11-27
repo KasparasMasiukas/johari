@@ -1,0 +1,34 @@
+
+.traits-paper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.traits-grid {
+  margin-top: 10px;
+  margin-bottom: 10px
+}
+
+$brick-color: #f5b6a7;
+$brick-color-active: #55e542;
+$brick-border-radius: 10px;
+$brick-space: 2px;
+
+.trait-tile {
+  background: $brick-color;
+  border-radius: $brick-border-radius;
+  margin: $brick-space;
+  box-shadow: 0 0 10px 1px darken($brick-color, 20%) inset;
+
+  &.active {
+    background: $brick-color-active;
+  }
+}
+
+//.MuiGridListTile-tile {
+//  background: $brick-color;
+//  border-radius: $brick-border-radius;
+//  margin: $brick-space;
+//  box-shadow: 0 0 19px 1px darken($brick-color, 20%) inset;
+//}
