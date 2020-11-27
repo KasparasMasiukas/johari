@@ -51,9 +51,9 @@ const TraitsGrid: React.FC<Props> = (() => {
 
     return (
         <Paper elevation={3} className="traits-paper">
-            <Typography variant="h5">Pasirinkite nuo {MIN_SELECTIONS} iki {MAX_SELECTIONS} savo savybių:</Typography>
+            <Typography variant="h5">Aš esu... (pasirinkite nuo {MIN_SELECTIONS} iki {MAX_SELECTIONS} savybių)</Typography>
             <GridList cellHeight={"auto"} spacing={1} cols={0} className="traits-grid">
-                {traits().map(makeTraitTile)}
+                {traits('male').map(makeTraitTile)}
             </GridList>
             <Snackbar open={openError} autoHideDuration={6000} onClose={handleErrorClose}>
                 <Alert onClose={handleErrorClose} severity="error">
