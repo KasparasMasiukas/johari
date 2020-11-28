@@ -1,4 +1,4 @@
-import firebase from "./firebase";
+import firebase from './firebase';
 
 export const db = firebase.firestore();
 
@@ -9,18 +9,18 @@ interface User {
 }
 
 const userConverter: firebase.firestore.FirestoreDataConverter<User> = {
-    toFirestore(modelObject: User): firebase.firestore.DocumentData {
-        return {...modelObject};
-    },
+  toFirestore(modelObject: User): firebase.firestore.DocumentData {
+    return { ...modelObject };
+  },
 
-    fromFirestore(snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions): User {
-        const data = snapshot.data(options)!;
-        return {
-            name: data.name,
-            gender: data.gender,
-            traits: data.traits
-        };
-    }
+  fromFirestore(snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions): User {
+    const data = snapshot.data(options)!;
+    return {
+      name: data.name,
+      gender: data.gender,
+      traits: data.traits,
+    };
+  },
 };
 
 export const users = db.collection('users').withConverter(userConverter);
@@ -32,18 +32,19 @@ interface Response {
 }
 
 const responseConverter: firebase.firestore.FirestoreDataConverter<Response> = {
-    toFirestore(modelObject: Response): firebase.firestore.DocumentData {
-        return {...modelObject};
-    },
+  toFirestore(modelObject: Response): firebase.firestore.DocumentData {
+    return { ...modelObject };
+  },
 
-    fromFirestore(snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions): Response {
-        const data = snapshot.data(options);
-        return {
-            recipientId: data.recipientId,
-            time: data.time,
-            traits: data.traits
-        }
-    }
+  fromFirestore(snapshot: firebase.firestore.QueryDocumentSnapshot, options: firebase.firestore.SnapshotOptions):
+    Response {
+    const data = snapshot.data(options);
+    return {
+      recipientId: data.recipientId,
+      time: data.time,
+      traits: data.traits,
+    };
+  },
 };
 
 export const responses = db.collection('responses').withConverter(responseConverter);

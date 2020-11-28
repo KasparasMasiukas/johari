@@ -9,7 +9,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
-import { FormContext } from '../context/FormContext';
+import { AppContext } from '../context/AppContext';
+import { ActionTypes } from '../context/reducers';
 
 interface Props {
 
@@ -26,17 +27,27 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const DetailsForm: React.FC<Props> = () => {
   const classes = useStyles();
-  const [state, setState] = useContext(FormContext);
-  const { name, gender } = state;
+  const { state, dispatch } = useContext(AppContext);
+  const { name, gender } = state.form;
 
   const handleGenderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newGender = (event.target as HTMLInputElement).value as 'male' | 'female';
-    setState((s) => ({ ...s, gender: newGender }));
+    dispatch({
+      type: ActionTypes.ChangeGender,
+      payload: {
+        gender: newGender,
+      },
+    });
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newName = (event.target as HTMLInputElement).value;
-    setState((s) => ({ ...s, name: newName }));
+    dispatch({
+      type: ActionTypes.ChangeName,
+      payload: {
+        name: newName,
+      },
+    });
   };
 
   console.log(`Name: ${name}, Gender: ${gender}`);

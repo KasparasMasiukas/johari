@@ -4,11 +4,11 @@ import { Container } from '@material-ui/core';
 import TitleBar from './components/TitleBar';
 import TraitsGrid from './components/TraitsGrid';
 import DetailsForm from './components/DetailsForm';
-import { FormProvider } from './context/FormContext';
+import { ContextProvider } from './context/AppContext';
 
 function App() {
   return (
-    <FormProvider>
+    <ContextProvider>
       <div className="container">
         <TitleBar />
         <Container maxWidth="lg" className="main-container">
@@ -16,7 +16,7 @@ function App() {
           <TraitsGrid />
         </Container>
       </div>
-    </FormProvider>
+    </ContextProvider>
   );
 }
 

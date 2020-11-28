@@ -21,10 +21,17 @@
     "react-hooks",
     "@typescript-eslint"
   ],
+  "root": false,
   "rules": {
     "no-use-before-define": "off",
+    "no-shadow": "off",
+    "no-console": "warn",
+    "no-unused-vars": "off",
+    "max-len": "off",
+    "import/no-duplicates": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-one-expression-per-line": "off",
     "react/jsx-filename-extension": [
       1,
       {
