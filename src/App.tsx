@@ -5,6 +5,7 @@ import TitleBar from './components/TitleBar';
 import TraitsGrid from './components/TraitsGrid';
 import DetailsForm from './components/DetailsForm';
 import { ContextProvider } from './context/AppContext';
+import FinishButton from './components/FinishButton';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Container maxWidth="lg" className="main-container">
           <DetailsForm />
           <TraitsGrid />
+          <FinishButton forSelf />
         </Container>
       </div>
     </ContextProvider>

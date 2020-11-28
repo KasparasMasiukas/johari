@@ -9,13 +9,11 @@ import Alert from '@material-ui/lab/Alert';
 import { AppContext } from '../context/AppContext';
 import { ActionTypes } from '../context/reducers';
 import getTraits from '../services/traits';
+import { MAX_SELECTIONS, MIN_SELECTIONS } from '../context/globals';
 
 interface Props {
 
 }
-
-const MIN_SELECTIONS = 5;
-const MAX_SELECTIONS = 10;
 
 const TraitsGrid: React.FC<Props> = (() => {
   const [openError, setOpenError] = useState(false);

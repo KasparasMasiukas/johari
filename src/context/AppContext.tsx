@@ -1,14 +1,9 @@
 import React, { useReducer } from 'react';
 import { FormActions, formReducer } from './reducers';
+import { Form } from './types';
 
 interface AppState {
   form: Form
-}
-
-interface Form {
-  name: string,
-  gender: 'male' | 'female',
-  traits: number[]
 }
 
 const initState: AppState = {

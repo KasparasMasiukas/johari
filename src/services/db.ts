@@ -1,4 +1,6 @@
+import random from 'random-string-generator';
 import firebase from './firebase';
+import { Form } from '../context/types';
 
 export const db = firebase.firestore();
 
@@ -48,3 +50,10 @@ const responseConverter: firebase.firestore.FirestoreDataConverter<Response> = {
 };
 
 export const responses = db.collection('responses').withConverter(responseConverter);
+
+export const genId = () => random(6, 'lowernumeric');
+
+export const addNewUser = (form: Form) => {
+  const id = genId();
+  return users.doc(id).set({ ...form });
+};
