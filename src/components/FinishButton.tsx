@@ -65,7 +65,7 @@ const FinishButton: React.FC<Props> = ({ recipientId }) => {
 
   return (
     <div>
-      <Button variant="contained" startIcon={<SaveIcon />} onClick={handleClick} color="primary" size="large">Baigti</Button>
+      <Button disabled={success} variant="contained" startIcon={<SaveIcon />} onClick={handleClick} color="primary" size="large">Baigti</Button>
       <Snackbar open={!!error} autoHideDuration={6000} onClose={handleErrorClose}>
         <Alert onClose={handleErrorClose} severity="error">
           {error}
