@@ -39,8 +39,9 @@ const Results: React.FC = () => {
   const responsesTitle = state.responses.responses.length === 0 ? 'Laukiama atsakymų...' : `${state.responses.responses.length} iš mano draugų mano, kad esu...`;
   return (
     <div>
-      <Typography variant="h4">Rezultatai. Pasidalinkite šia nuoroda su draugais:</Typography>
-      <a href={shareUrl}>{shareUrl}</a>
+      <Typography variant="h3">Rezultatai</Typography>
+      <Typography variant="h4">Pasidalinkite šia nuoroda su draugais:</Typography>
+      <a target="_blank" rel="noreferrer" href={shareUrl}>{shareUrl}</a>
       <TraitsGrid title="Aš manau, kad esu..." traitIds={state.form.traits} activeTraits={overlappingTraits} />
       <TraitsGrid title={responsesTitle} traitIds={traitsFromResponses} activeTraits={overlappingTraits} />
       { invalidUser && <Redirect to="/" />}

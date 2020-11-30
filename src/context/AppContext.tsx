@@ -2,12 +2,7 @@ import React, { useReducer } from 'react';
 import {
   FormActions, formReducer, ResponseActions, responseReducer,
 } from './reducers';
-import { ResponsesType, User } from './types';
-
-interface AppState {
-  form: User,
-  responses: ResponsesType
-}
+import { AppState } from './types';
 
 const initState: AppState = {
   form: {
@@ -17,6 +12,7 @@ const initState: AppState = {
   },
   responses: {
     responses: [],
+    name: '',
   },
 };
 

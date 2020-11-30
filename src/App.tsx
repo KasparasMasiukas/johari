@@ -4,11 +4,12 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import TitleBar from './components/TitleBar';
 import { ContextProvider } from './context/AppContext';
 import SelfForm from './components/SelfForm';
 import Results from './components/Results';
+import ResponseForm from './components/ResponseForm';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
               <Results />
             </Route>
             <Route path="/:id">
-              <Typography variant="h4">Čia bus atsakymų suvedimas...</Typography>
+              <ResponseForm />
             </Route>
             <Route path="/">
               <SelfForm />

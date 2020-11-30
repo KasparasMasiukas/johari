@@ -13,7 +13,7 @@ import { AppContext } from '../context/AppContext';
 import { ActionTypes } from '../context/reducers';
 
 interface Props {
-
+  responder?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-const DetailsForm: React.FC<Props> = () => {
+const DetailsForm: React.FC<Props> = ({ responder }) => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
   const { name, gender } = state.form;
@@ -50,13 +50,24 @@ const DetailsForm: React.FC<Props> = () => {
     });
   };
 
-  console.log(`Name: ${name}, Gender: ${gender}`);
+  const handleResponderNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newName = (event.target as HTMLInputElement).value;
+    dispatch({
+      type: ActionTypes.ChangeResponderName,
+      payload: {
+        name: newName,
+      },
+    });
+  };
+
+  // console.log(`Name: ${name}, Gender: ${gender}`);
 
   return (
     <Paper elevation={3} className="details-paper">
       <Typography variant="h5">Kas Jūs?</Typography>
       <form className={classes.root} noValidate autoComplete="off">
-        <TextField required label="Vardas" value={name} onChange={handleNameChange} />
+        <TextField required label="Vardas" value={responder ? state.responses.name : name} onChange={responder ? handleResponderNameChange : handleNameChange} />
+        {!responder && (
         <FormControl component="fieldset">
           <FormLabel component="legend">Lytis</FormLabel>
           <RadioGroup aria-label="gender" name="gender1" value={gender} onChange={handleGenderChange}>
@@ -64,6 +75,7 @@ const DetailsForm: React.FC<Props> = () => {
             <FormControlLabel value="male" control={<Radio />} label="Vyras" />
           </RadioGroup>
         </FormControl>
+        )}
       </form>
     </Paper>
   );

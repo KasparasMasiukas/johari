@@ -20,7 +20,9 @@ export enum ActionTypes {
   AddTrait = 'ADD_TRAIT',
   RemoveTrait = 'REMOVE_TRAIT',
   SetUserProfile = 'SET_USER_PROFILE',
-  AddResponses = 'ADD_RESPONSES'
+  SetUserProfileWithoutTraits = 'SET_USER_PROFILE_WITHOUT_TRAITS',
+  AddResponses = 'ADD_RESPONSES',
+  ChangeResponderName = 'CHANGE_RESPONDER_NAME'
 }
 
 type FormPayload = {
@@ -38,6 +40,9 @@ type FormPayload = {
   };
   [ActionTypes.SetUserProfile]: {
     user: User
+  };
+  [ActionTypes.SetUserProfileWithoutTraits]: {
+    user: User
   }
 }
 
@@ -46,6 +51,9 @@ export type FormActions = ActionMap<FormPayload>[keyof ActionMap<FormPayload>];
 type ResponsePayload = {
   [ActionTypes.AddResponses]: {
     newResponses: Response[]
+  };
+  [ActionTypes.ChangeResponderName]: {
+    name: string
   }
 }
 
@@ -63,6 +71,10 @@ export const formReducer = (state: FormType, action: FormActions | ResponseActio
       return { ...state, traits: state.traits.filter((id) => id !== action.payload.trait) };
     case ActionTypes.SetUserProfile:
       return { ...state, ...action.payload.user };
+    case ActionTypes.SetUserProfileWithoutTraits:
+      return {
+        ...state, name: action.payload.user.name, gender: action.payload.user.gender, traits: [],
+      };
     default:
       return state;
   }
@@ -72,6 +84,8 @@ export const responseReducer = (state: ResponsesType, action: FormActions | Resp
   switch (action.type) {
     case ActionTypes.AddResponses:
       return { ...state, responses: _.unionBy(action.payload.newResponses, state.responses, 'id') };
+    case ActionTypes.ChangeResponderName:
+      return { ...state, name: action.payload.name };
     default:
       return state;
   }

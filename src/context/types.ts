@@ -1,5 +1,10 @@
 import firebase from '../services/firebase';
 
+export interface AppState {
+  form: User,
+  responses: ResponsesType
+}
+
 export interface User {
   name: string,
   gender: Gender,
@@ -13,7 +18,8 @@ export type FormType = {
 }
 
 export interface Response {
-  id: string,
+  id?: string,
+  name: string,
   recipientId: string,
   time: firebase.firestore.Timestamp,
   traits: number[]
@@ -21,6 +27,7 @@ export interface Response {
 
 export type ResponsesType = {
   responses: Response[];
+  name: string
 }
 
 export type Gender = 'male' | 'female'

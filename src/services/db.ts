@@ -1,6 +1,6 @@
 import random from 'random-string-generator';
 import firebase from './firebase';
-import { User, Response } from '../context/types';
+import { User, Response, AppState } from '../context/types';
 
 export const db = firebase.firestore();
 
@@ -34,6 +34,7 @@ const responseConverter: firebase.firestore.FirestoreDataConverter<Response> = {
       recipientId: data.recipientId,
       time: data.time,
       traits: data.traits,
+      name: data.name,
     };
   },
 };
@@ -44,7 +45,14 @@ export const genId = () => random(6, 'lowernumeric');
 
 export const addNewUser = (form: User) => {
   const id = genId();
-  return usersCollection.doc(id).set({ ...form });
+  return usersCollection.doc(id).set({ ...form }).then(() => usersCollection.doc(id).get());
 };
+
+export const addNewResponse = (appState: AppState, recipientId: string) => responsesCollection.add({
+  recipientId,
+  time: firebase.firestore.Timestamp.now(),
+  traits: appState.form.traits,
+  name: appState.responses.name,
+});
 
 export const getUser = (id: string) => usersCollection.doc(id).get();
