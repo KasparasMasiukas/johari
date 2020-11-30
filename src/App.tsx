@@ -1,11 +1,14 @@
 import React from 'react';
 import './styles/App.scss';
-import { Container } from '@material-ui/core';
+import {
+  Switch,
+  Route,
+} from 'react-router-dom';
+import { Container, Typography } from '@material-ui/core';
 import TitleBar from './components/TitleBar';
-import TraitsGrid from './components/TraitsGrid';
-import DetailsForm from './components/DetailsForm';
 import { ContextProvider } from './context/AppContext';
-import FinishButton from './components/FinishButton';
+import SelfForm from './components/SelfForm';
+import Results from './components/Results';
 
 function App() {
   return (
@@ -13,9 +16,17 @@ function App() {
       <div className="container">
         <TitleBar />
         <Container maxWidth="lg" className="main-container">
-          <DetailsForm />
-          <TraitsGrid />
-          <FinishButton forSelf />
+          <Switch>
+            <Route path="/:id/results">
+              <Results />
+            </Route>
+            <Route path="/:id">
+              <Typography variant="h4">Čia bus atsakymų suvedimas...</Typography>
+            </Route>
+            <Route path="/">
+              <SelfForm />
+            </Route>
+          </Switch>
         </Container>
       </div>
     </ContextProvider>

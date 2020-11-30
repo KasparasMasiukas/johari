@@ -1,9 +1,12 @@
 import React, { useReducer } from 'react';
-import { FormActions, formReducer } from './reducers';
-import { Form } from './types';
+import {
+  FormActions, formReducer, ResponseActions, responseReducer,
+} from './reducers';
+import { ResponsesType, User } from './types';
 
 interface AppState {
-  form: Form
+  form: User,
+  responses: ResponsesType
 }
 
 const initState: AppState = {
@@ -12,18 +15,22 @@ const initState: AppState = {
     gender: 'female',
     traits: [],
   },
+  responses: {
+    responses: [],
+  },
 };
 
 const AppContext = React.createContext<{
   state: AppState;
-  dispatch: React.Dispatch<FormActions>;
+  dispatch: React.Dispatch<FormActions | ResponseActions>;
 }>({
   state: initState,
   dispatch: () => null,
 });
 
-const mainReducer = ({ form }: AppState, action: FormActions) => ({
+const mainReducer = ({ form, responses }: AppState, action: FormActions | ResponseActions) => ({
   form: formReducer(form, action),
+  responses: responseReducer(responses, action),
 });
 
 const ContextProvider: React.FC = (props) => {

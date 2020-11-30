@@ -1,4 +1,7 @@
-import { FormType, Gender } from './types';
+import _ from 'lodash';
+import {
+  FormType, Gender, Response, ResponsesType, User,
+} from './types';
 
 type ActionMap<M extends { [index: string]: any }> = {
   [Key in keyof M]: M[Key] extends undefined
@@ -16,6 +19,8 @@ export enum ActionTypes {
   ChangeGender = 'CHANGE_GENDER',
   AddTrait = 'ADD_TRAIT',
   RemoveTrait = 'REMOVE_TRAIT',
+  SetUserProfile = 'SET_USER_PROFILE',
+  AddResponses = 'ADD_RESPONSES'
 }
 
 type FormPayload = {
@@ -31,11 +36,22 @@ type FormPayload = {
   [ActionTypes.RemoveTrait]: {
     trait: number
   };
+  [ActionTypes.SetUserProfile]: {
+    user: User
+  }
 }
 
 export type FormActions = ActionMap<FormPayload>[keyof ActionMap<FormPayload>];
 
-export const formReducer = (state: FormType, action: FormActions) => {
+type ResponsePayload = {
+  [ActionTypes.AddResponses]: {
+    newResponses: Response[]
+  }
+}
+
+export type ResponseActions = ActionMap<ResponsePayload>[keyof ActionMap<ResponsePayload>];
+
+export const formReducer = (state: FormType, action: FormActions | ResponseActions) => {
   switch (action.type) {
     case ActionTypes.ChangeName:
       return { ...state, name: action.payload.name };
@@ -45,6 +61,17 @@ export const formReducer = (state: FormType, action: FormActions) => {
       return { ...state, traits: state.traits.concat([action.payload.trait]) };
     case ActionTypes.RemoveTrait:
       return { ...state, traits: state.traits.filter((id) => id !== action.payload.trait) };
+    case ActionTypes.SetUserProfile:
+      return { ...state, ...action.payload.user };
+    default:
+      return state;
+  }
+};
+
+export const responseReducer = (state: ResponsesType, action: FormActions | ResponseActions) => {
+  switch (action.type) {
+    case ActionTypes.AddResponses:
+      return { ...state, responses: _.unionBy(action.payload.newResponses, state.responses, 'id') };
     default:
       return state;
   }

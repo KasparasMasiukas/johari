@@ -9,28 +9,37 @@ import Alert from '@material-ui/lab/Alert';
 import { AppContext } from '../context/AppContext';
 import { ActionTypes } from '../context/reducers';
 import getTraits from '../services/traits';
-import { MAX_SELECTIONS, MIN_SELECTIONS } from '../context/globals';
+import { MAX_SELECTIONS } from '../context/globals';
+import { Trait } from '../context/types';
 
 interface Props {
-
+  title: string;
+  traitIds?: number[], // if not supplied, show all
+  selectable?: boolean,
+  activeTraits?: number[]
 }
 
-const TraitsGrid: React.FC<Props> = (() => {
+const TraitsGrid: React.FC<Props> = (({
+  title, traitIds, selectable, activeTraits,
+}) => {
   const [openError, setOpenError] = useState(false);
   const { state, dispatch } = useContext(AppContext);
-  const { traits } = state.form;
+  const { traits, gender } = state.form;
 
   const tileOnClickListener = (id: number) => {
+    if (!selectable) return;
     if (traits.includes(id)) dispatch({ type: ActionTypes.RemoveTrait, payload: { trait: id } });
     else if (traits.length >= MAX_SELECTIONS) setOpenError(true);
     else dispatch({ type: ActionTypes.AddTrait, payload: { trait: id } });
   };
 
-  const makeTraitTile = (trait: string, id: number) => (
-    <GridListTile key={id} onClick={() => tileOnClickListener(id)}>
-      <Card raised={false} className={`trait-tile${traits.includes(id) ? ' active' : ''}`}>
+  const isTileActive = (i: number) => (!traitIds && traits.includes(i)) || (activeTraits && activeTraits.includes(i));
+
+  const makeTraitTile = (trait: Trait) => (
+    <GridListTile key={trait.id} onClick={() => tileOnClickListener(trait.id)}>
+      <Card raised={false} className={`trait-tile${isTileActive(trait.id) ? ' active' : ''}`}>
         <CardContent>
-          <Typography variant="h5">{trait}</Typography>
+          <Typography variant="h5">{trait.name}</Typography>
         </CardContent>
       </Card>
     </GridListTile>
@@ -47,10 +56,10 @@ const TraitsGrid: React.FC<Props> = (() => {
   return (
     <Paper elevation={3} className="traits-paper">
       <Typography variant="h5">
-        Aš esu... (pasirinkite nuo {MIN_SELECTIONS} iki {MAX_SELECTIONS} savybių)
+        {title}
       </Typography>
       <GridList cellHeight="auto" spacing={1} cols={0} className="traits-grid">
-        {getTraits('male').map(makeTraitTile)}
+        {getTraits(gender).filter((g, i) => !traitIds || traitIds.includes(i)).map(makeTraitTile)}
       </GridList>
       <Snackbar open={openError} autoHideDuration={6000} onClose={handleErrorClose}>
         <Alert onClose={handleErrorClose} severity="error">

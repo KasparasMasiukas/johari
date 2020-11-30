@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import '../styles/FinishButton.scss';
 import { Button } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import SaveIcon from '@material-ui/icons/Save';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -24,7 +23,7 @@ const FinishButton: React.FC<Props> = (props) => {
   };
 
   const handleClick = () => {
-    console.log('Save clicked');
+    // console.log('Save clicked');
     const err = validateInputs();
     if (err) setError(err);
     else if (props.forSelf) { // submit for self (new user)
@@ -43,14 +42,14 @@ const FinishButton: React.FC<Props> = (props) => {
   };
 
   return (
-    <Paper elevation={3}>
+    <div>
       <Button variant="contained" startIcon={<SaveIcon />} onClick={handleClick} color="primary" size="large">Baigti</Button>
       <Snackbar open={!!error} autoHideDuration={6000} onClose={handleErrorClose}>
         <Alert onClose={handleErrorClose} severity="error">
           {error}
         </Alert>
       </Snackbar>
-    </Paper>
+    </div>
   );
 };
 
