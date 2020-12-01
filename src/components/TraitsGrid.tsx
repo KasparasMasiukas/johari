@@ -6,21 +6,23 @@ import {
 import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import Tooltip from '@material-ui/core/Tooltip';
 import { AppContext } from '../context/AppContext';
 import { ActionTypes } from '../context/reducers';
 import getTraits from '../services/traits';
 import { MAX_SELECTIONS } from '../context/globals';
-import { Trait } from '../context/types';
+import { Trait, TraitsPeople } from '../context/types';
 
 interface Props {
   title: string;
   traitIds?: number[], // if not supplied, show all
   selectable?: boolean,
-  activeTraits?: number[]
+  activeTraits?: number[],
+  traitsPeople?: TraitsPeople
 }
 
 const TraitsGrid: React.FC<Props> = (({
-  title, traitIds, selectable, activeTraits,
+  title, traitIds, selectable, activeTraits, traitsPeople,
 }) => {
   const [openError, setOpenError] = useState(false);
   const { state, dispatch } = useContext(AppContext);
@@ -35,13 +37,21 @@ const TraitsGrid: React.FC<Props> = (({
 
   const isTileActive = (i: number) => (!traitIds && traits.includes(i)) || (activeTraits && activeTraits.includes(i));
 
+  const makeTooltipTitle = (names: string[]) => (!names || names.length === 0 ? '' : (
+    <div>
+      {names.map((n, i) => (<div>{n}{i < names.length - 1 && <br />}</div>))}
+    </div>
+  ));
+
   const makeTraitTile = (trait: Trait) => (
     <GridListTile key={trait.id} onClick={() => tileOnClickListener(trait.id)}>
-      <Card raised={false} className={`trait-tile${isTileActive(trait.id) ? ' active' : ''}`}>
-        <CardContent>
-          <Typography variant="h5">{trait.name}</Typography>
-        </CardContent>
-      </Card>
+      <Tooltip title={makeTooltipTitle(traitsPeople ? traitsPeople[trait.id] : [])}>
+        <Card raised className={`trait-tile${isTileActive(trait.id) ? ' active' : ''}`}>
+          <CardContent>
+            <Typography variant="h6">{trait.name}</Typography>
+          </CardContent>
+        </Card>
+      </Tooltip>
     </GridListTile>
   );
 

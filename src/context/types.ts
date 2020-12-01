@@ -36,3 +36,7 @@ export interface Trait {
   id: number,
   name: string
 }
+
+export interface TraitsPeople {
+  [key: number]: string[]
+}

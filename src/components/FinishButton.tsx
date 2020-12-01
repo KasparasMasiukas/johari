@@ -55,13 +55,9 @@ const FinishButton: React.FC<Props> = ({ recipientId }) => {
     setError('');
   };
 
-  const handleSuccessClose = (event?: React.SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setSuccess(false);
-  };
+  // const handleSuccessClose = (event?: React.SyntheticEvent, reason?: string) => {
+  //   // setSuccess(false);
+  // };
 
   return (
     <div>
@@ -71,8 +67,8 @@ const FinishButton: React.FC<Props> = ({ recipientId }) => {
           {error}
         </Alert>
       </Snackbar>
-      <Snackbar open={success} onClose={handleSuccessClose}>
-        <Alert onClose={handleSuccessClose} severity="success">
+      <Snackbar open={success}>
+        <Alert severity="success">
           Ačiū, kad pildėte! Jūsų atsakymus {form.name} matys savo rezultatų puslapyje.
         </Alert>
       </Snackbar>

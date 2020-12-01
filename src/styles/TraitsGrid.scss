@@ -16,10 +16,11 @@ $brick-border-radius: 10px;
 $brick-space: 2px;
 
 .trait-tile {
-  background: $brick-color;
-  border-radius: $brick-border-radius;
-  margin: $brick-space;
-  box-shadow: 0 0 10px 1px darken($brick-color, 20%) inset;
+  height: 55px;
+  //background: $brick-color;
+  //border-radius: $brick-border-radius;
+  //margin: $brick-space;
+  //box-shadow: 0 0 10px 1px darken($brick-color, 20%) inset;
 
   &.active {
     background: $brick-color-active;

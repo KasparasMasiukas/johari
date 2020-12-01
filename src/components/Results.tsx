@@ -6,7 +6,7 @@ import { AppContext } from '../context/AppContext';
 import TraitsGrid from './TraitsGrid';
 import { getUser, responsesCollection } from '../services/db';
 import { ActionTypes } from '../context/reducers';
-import { Response, User } from '../context/types';
+import { Response, TraitsPeople, User } from '../context/types';
 
 interface Params {
   id: string;
@@ -35,6 +35,13 @@ const Results: React.FC = () => {
   }, [userId, dispatch]);
   const shareUrl = window.location.href.replace('/results', '');
   const traitsFromResponses = _.uniq(state.responses.responses.flatMap((r) => r.traits));
+  const traitsPeople = state.responses.responses.flatMap((r) => r.traits.map((t) => ({ traitId: t, name: r.name })))
+    .reduce((aggr, current) => {
+      const result = aggr;
+      if (current.traitId in aggr) result[current.traitId].push(current.name);
+      else result[current.traitId] = [current.name];
+      return result;
+    }, {} as TraitsPeople);
   const overlappingTraits = _.intersection(state.form.traits, traitsFromResponses);
   const responsesTitle = state.responses.responses.length === 0 ? 'Laukiama atsakymų...' : `${state.responses.responses.length} iš mano draugų mano, kad esu...`;
   return (
@@ -43,7 +50,7 @@ const Results: React.FC = () => {
       <Typography variant="h4">Pasidalinkite šia nuoroda su draugais:</Typography>
       <a target="_blank" rel="noreferrer" href={shareUrl}>{shareUrl}</a>
       <TraitsGrid title="Aš manau, kad esu..." traitIds={state.form.traits} activeTraits={overlappingTraits} />
-      <TraitsGrid title={responsesTitle} traitIds={traitsFromResponses} activeTraits={overlappingTraits} />
+      <TraitsGrid title={responsesTitle} traitIds={traitsFromResponses} activeTraits={overlappingTraits} traitsPeople={traitsPeople} />
       { invalidUser && <Redirect to="/" />}
     </div>
   );
