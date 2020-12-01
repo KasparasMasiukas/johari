@@ -4,6 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "site": "prevencijos-gr",
     "public": "build",
     "ignore": [
       "firebase.json",
