@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Tooltip from '@material-ui/core/Tooltip';
+import _ from 'lodash';
 import { AppContext } from '../context/AppContext';
 import { ActionTypes } from '../context/reducers';
 import getTraits from '../services/traits';
@@ -63,13 +64,17 @@ const TraitsGrid: React.FC<Props> = (({
     setOpenError(false);
   };
 
+  const allTraits = getTraits(gender);
+
   return (
     <Paper elevation={3} className="traits-paper">
       <Typography variant="h5">
         {title}
       </Typography>
       <GridList cellHeight="auto" spacing={1} cols={0} className="traits-grid">
-        {getTraits(gender).filter((g, i) => !traitIds || traitIds.includes(i)).map(makeTraitTile)}
+        { !traitIds
+          ? allTraits.map(makeTraitTile)
+          : traitIds.map((tId) => _.get(allTraits, tId)).map(makeTraitTile)}
       </GridList>
       <Snackbar open={openError} autoHideDuration={6000} onClose={handleErrorClose}>
         <Alert onClose={handleErrorClose} severity="error">

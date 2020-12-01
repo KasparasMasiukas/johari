@@ -34,7 +34,7 @@ const Results: React.FC = () => {
     }, () => window.location.reload());
   }, [userId, dispatch]);
   const shareUrl = window.location.href.replace('/results', '');
-  const traitsFromResponses = _.uniq(state.responses.responses.flatMap((r) => r.traits));
+
   const traitsPeople = state.responses.responses.flatMap((r) => r.traits.map((t) => ({ traitId: t, name: r.name })))
     .reduce((aggr, current) => {
       const result = aggr;
@@ -42,6 +42,7 @@ const Results: React.FC = () => {
       else result[current.traitId] = [current.name];
       return result;
     }, {} as TraitsPeople);
+  const traitsFromResponses = _.sortBy(_.uniq(state.responses.responses.flatMap((r) => r.traits)), (t) => traitsPeople[t].length).reverse();
   const overlappingTraits = _.intersection(state.form.traits, traitsFromResponses);
   const responsesTitle = state.responses.responses.length === 0 ? 'Laukiama atsakymų...' : `${state.responses.responses.length} iš mano draugų mano, kad esu...`;
   return (
