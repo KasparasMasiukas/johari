@@ -27,8 +27,8 @@ const ResponseForm: React.FC = () => {
   }, [id, dispatch]);
   return (
     <div>
-      <DetailsForm responder />
       <TraitsGrid selectable title={`Aš manau, kad ${state.form.name} yra... (pasirinkite nuo ${MIN_SELECTIONS} iki ${MAX_SELECTIONS} savybių)`} />
+      <DetailsForm responder />
       <FinishButton recipientId={id} />
       {invalidUser && <Redirect to="/" />}
     </div>
