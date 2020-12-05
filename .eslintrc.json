@@ -29,6 +29,11 @@
     "no-unused-vars": "off",
     "max-len": "off",
     "import/no-duplicates": "off",
+    "import/no-extraneous-dependencies": [
+      "error", {
+        "devDependencies": true
+      }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-one-expression-per-line": "off",

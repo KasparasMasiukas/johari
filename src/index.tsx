@@ -3,13 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'fontsource-roboto';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#303f46',
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root'),
