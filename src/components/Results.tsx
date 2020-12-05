@@ -33,7 +33,8 @@ const Results: React.FC = () => {
       dispatch({ type: ActionTypes.AddResponses, payload: { newResponses } });
     }, () => window.location.reload());
   }, [userId, dispatch]);
-  const shareUrl = window.location.href.replace('/results', '');
+  // const shareUrl = window.location.href.replace('/results', ''); // <- this leaves all the extras like query parameters
+  const shareUrl = `${window.location.origin}/${userId}`;
 
   const traitsPeople = state.responses.responses.flatMap((r) => r.traits.map((t) => ({ traitId: t, name: r.name })))
     .reduce((aggr, current) => {
