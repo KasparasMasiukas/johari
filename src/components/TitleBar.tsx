@@ -1,12 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import '../styles/TitleBar.scss';
+import logo from '../assets/logo.png';
 
 const TitleBar: React.FC = () => (
-  <AppBar position="static">
-    <Toolbar>
-      <Typography variant="h2">Savęs vertinimas</Typography>
-    </Toolbar>
-  </AppBar>
+  <div className="title-bar">
+    <img src={logo} className="logo" alt="logo" />
+  </div>
 );
 
 export default TitleBar;
