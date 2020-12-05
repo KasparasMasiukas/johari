@@ -46,7 +46,7 @@ const TraitsGrid: React.FC<Props> = (({
 
   const makeTraitTile = (trait: Trait) => (
     <GridListTile key={trait.id} onClick={() => tileOnClickListener(trait.id)}>
-      <Tooltip title={makeTooltipTitle(traitsPeople ? traitsPeople[trait.id] : [])}>
+      <Tooltip enterTouchDelay={0} title={makeTooltipTitle(traitsPeople ? traitsPeople[trait.id] : [])}>
         <Card raised className={`trait-tile${isTileActive(trait.id) ? ' active' : ''}`}>
           <CardContent>
             <Typography variant="h6">{trait.name}</Typography>
