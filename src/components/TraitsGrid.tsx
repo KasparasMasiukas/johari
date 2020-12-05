@@ -67,7 +67,7 @@ const TraitsGrid: React.FC<Props> = (({
   const allTraits = getTraits(gender);
 
   return (
-    <Paper elevation={3} className="traits-paper">
+    <Paper elevation={3} className="content-paper">
       <Typography variant="h5">
         {title}
       </Typography>

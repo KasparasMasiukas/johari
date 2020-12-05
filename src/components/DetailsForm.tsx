@@ -63,7 +63,7 @@ const DetailsForm: React.FC<Props> = ({ responder }) => {
   // console.log(`Name: ${name}, Gender: ${gender}`);
 
   return (
-    <Paper elevation={3} className="details-paper">
+    <Paper elevation={3} className="content-paper">
       <Typography variant="h5">Kas Jūs?</Typography>
       <form className={classes.root} noValidate autoComplete="off">
         <TextField required label="Vardas" value={responder ? state.responses.name : name} onChange={responder ? handleResponderNameChange : handleNameChange} />
