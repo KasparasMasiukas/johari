@@ -11,7 +11,10 @@ const SelfForm: React.FC = () => (
     <Paper elevation={3} className="content-paper instructions-paper">
       <div className="instructions-container">
         <Typography style={{ marginBottom: 10 }} variant="h3">Savęs vertinimas</Typography>
-        <Typography className="justify" variant="body1">Atlikite savęs vertinimo testą. Gavus nuorodą nusiųskite savo draugams, kurių nuomonę apie save norėtumėte išgirsti ir sužinokite, kurios Jūsų savybės yra matomos kitiems, o kurios nežinomos. Nemokamai. Be jokios registracijos.
+        <Typography className="justify" variant="body1">
+          Atlikite savęs vertinimo testą. Gavus nuorodą nusiųskite savo draugams, kurių nuomonę apie save norėtumėte išgirsti ir sužinokite, kurios Jūsų savybės yra matomos kitiems, o kurios nežinomos.
+          <br /><br />
+          <em>Nemokamai. Be jokios registracijos.</em>
         </Typography>
       </div>
     </Paper>
